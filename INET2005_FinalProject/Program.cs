@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using INET2005_FinalProject.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<INET2005_FinalProjectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("INET2005_FinalProjectContext") ?? throw new InvalidOperationException("Connection string 'INET2005_FinalProjectContext' not found.")));
 
 var app = builder.Build();
 
