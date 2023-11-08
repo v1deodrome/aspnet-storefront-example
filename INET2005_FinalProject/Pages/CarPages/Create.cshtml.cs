@@ -44,11 +44,18 @@ namespace INET2005_FinalProject.Pages.CarPages
 
         [BindProperty]
         public Car Car { get; set; } = default!;
-        
+
+        [BindProperty]
+        public IFormFile ImageUpload { get; set; } = default!;
+
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            // Set filename for the photo
+            string imageFileName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss_") + ImageUpload.FileName;
+            Car.ImageName = imageFileName;
+
             // Get and set TypeID
             int typeID = Car.CarType.CarTypeID;
             CarType carType = _context.CarType.Single(m => m.CarTypeID == typeID);
@@ -62,6 +69,13 @@ namespace INET2005_FinalProject.Pages.CarPages
 
             _context.Car.Add(Car);
             await _context.SaveChangesAsync();
+
+            // Save image to filesystem
+            string filePath = Path.Combine(_env.ContentRootPath, "wwwroot/photos", imageFileName);
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                ImageUpload.CopyTo(fileStream);
+            }
 
             return RedirectToPage("./Index");
         }
