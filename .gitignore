@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /INET2005_FinalProject/appsettings.json
+/INET2005_FinalProject/appsettings.json
+/INET2005_FinalProject/appsettings.Development.json
