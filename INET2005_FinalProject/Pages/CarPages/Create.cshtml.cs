@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using INET2005_FinalProject.Data;
 using INET2005_FinalProject.Models;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INET2005_FinalProject.Pages.CarPages
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly INET2005_FinalProject.Data.INET2005_FinalProjectContext _context;
