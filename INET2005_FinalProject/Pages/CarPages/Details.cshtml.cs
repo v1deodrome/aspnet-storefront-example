@@ -28,7 +28,7 @@ namespace INET2005_FinalProject.Pages.CarPages
                 return NotFound();
             }
 
-            var car = await _context.Car.FirstOrDefaultAsync(m => m.CarID == id);
+            var car = await _context.Car.Include("PokemonType").FirstOrDefaultAsync(m => m.CarID == id);
             if (car == null)
             {
                 return NotFound();

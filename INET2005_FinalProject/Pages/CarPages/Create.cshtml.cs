@@ -18,6 +18,13 @@ namespace INET2005_FinalProject.Pages.CarPages
         private readonly INET2005_FinalProject.Data.INET2005_FinalProjectContext _context;
         private readonly IWebHostEnvironment _env;
 
+        // Objects
+        [BindProperty]
+        public Car Car { get; set; } = default!;
+
+        [BindProperty]
+        public IFormFile ImageUpload { get; set; } = default!;
+
         // List of car types
         public List<SelectListItem> CarTypeList { get; set; } = new List<SelectListItem>();
 
@@ -43,13 +50,6 @@ namespace INET2005_FinalProject.Pages.CarPages
         {
             return Page();
         }
-
-        [BindProperty]
-        public Car Car { get; set; } = default!;
-
-        [BindProperty]
-        public IFormFile ImageUpload { get; set; } = default!;
-
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()

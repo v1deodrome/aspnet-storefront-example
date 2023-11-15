@@ -27,7 +27,7 @@ namespace INET2005_FinalProject.Pages.CarPages
         {
             if (_context.Car != null)
             {
-                Car = await _context.Car.ToListAsync();
+                Car = await _context.Car.Include("CarType").OrderByDescending(a => a.Name).ToListAsync();
             }
         }
     }

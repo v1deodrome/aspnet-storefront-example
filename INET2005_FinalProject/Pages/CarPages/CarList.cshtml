@@ -11,56 +11,28 @@
     <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Car[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car[0].BrandName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car[0].ModelYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car[0].Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Car[0].ImageName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
-@foreach (var item in Model.Car) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BrandName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModelYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.CarID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CarID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CarID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Car) 
+        {
+            // Concatenate image url
+            string imageURL = "https://" + Request.Host.Value + "/photos/" + item.ImageName;
+
+            <tr>
+                <td style="width: 10%">
+                    <img src="@imageURL" height="200" />
+                </td>
+                <td class="align-middle text-center">
+                    <h3>@item.ModelYear @item.Name</h3>
+                    <i>"@item.BrandName"</i> <br />
+                    <b>Type: </b> @item.CarType.TypeName <br />
+                    <b>Price: </b> @item.Price <br />
+                </td>
+                <td class="align-middle text-center">
+                    <a asp-page="./Edit" asp-route-id="@item.CarID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CarID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CarID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
