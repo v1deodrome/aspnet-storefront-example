@@ -11,9 +11,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Car.CarID" />
+            <input type="hidden" asp-for="Car.ImageName" class="form-control" />
             <div class="form-group">
                 <label asp-for="Car.Name" class="control-label"></label>
                 <input asp-for="Car.Name" class="form-control" />
@@ -33,6 +34,12 @@
                 <label asp-for="Car.Color" class="control-label"></label>
                 <input asp-for="Car.Color" class="form-control" />
                 <span asp-validation-for="Car.Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label">Type: </label>
+                <select asp-for="Car.CarType.CarTypeID" asp-items="Model.CarTypeList" class="form-control">
+                    <option value="">-- SELECT TYPE --</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Car.Price" class="control-label"></label>
