@@ -8,24 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using INET2005_FinalProject.Data;
 using INET2005_FinalProject.Models;
 
-namespace INET2005_FinalProject.Pages
+namespace INET2005_FinalProject.Pages.CarTypePages
 {
-    public class IndexModel : PageModel
+    public class CarTypeListModel : PageModel
     {
         private readonly INET2005_FinalProject.Data.INET2005_FinalProjectContext _context;
 
-        public IndexModel(INET2005_FinalProject.Data.INET2005_FinalProjectContext context)
+        public CarTypeListModel(INET2005_FinalProject.Data.INET2005_FinalProjectContext context)
         {
             _context = context;
         }
 
-        public IList<Car> Car { get;set; } = default!;
+        public IList<CarType> CarType { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Car != null)
+            if (_context.CarType != null)
             {
-                Car = await _context.Car.ToListAsync();
+                CarType = await _context.CarType.ToListAsync();
             }
         }
     }

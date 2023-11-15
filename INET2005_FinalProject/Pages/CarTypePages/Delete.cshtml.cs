@@ -57,7 +57,7 @@ namespace INET2005_FinalProject.Pages.CarTypePages
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./CarTypeList");
         }
     }
 }

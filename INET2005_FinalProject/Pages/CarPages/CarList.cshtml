@@ -1,12 +1,15 @@
 ﻿@page
-@model INET2005_FinalProject.Pages.IndexModel
+@model INET2005_FinalProject.Pages.CarPages.CarListModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CarList";
 }
 
-<h1>Index</h1>
+<h1>CarList</h1>
 
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -51,6 +54,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CarID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CarID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CarID">Delete</a>
             </td>
         </tr>
 }

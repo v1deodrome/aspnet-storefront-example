@@ -77,7 +77,7 @@ namespace INET2005_FinalProject.Pages.CarPages
                 ImageUpload.CopyTo(fileStream);
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./CarList");
         }
     }
 }

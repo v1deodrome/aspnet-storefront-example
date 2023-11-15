@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using INET2005_FinalProject.Data;
 using INET2005_FinalProject.Models;
 
-namespace INET2005_FinalProject.Pages
+namespace INET2005_FinalProject.Pages.CarPages
 {
-    public class IndexModel : PageModel
+    public class CarListModel : PageModel
     {
         private readonly INET2005_FinalProject.Data.INET2005_FinalProjectContext _context;
 
-        public IndexModel(INET2005_FinalProject.Data.INET2005_FinalProjectContext context)
+        public CarListModel(INET2005_FinalProject.Data.INET2005_FinalProjectContext context)
         {
             _context = context;
         }

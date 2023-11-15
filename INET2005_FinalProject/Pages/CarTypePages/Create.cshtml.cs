@@ -39,7 +39,7 @@ namespace INET2005_FinalProject.Pages.CarTypePages
             _context.CarType.Add(CarType);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./CarTypeList");
         }
     }
 }

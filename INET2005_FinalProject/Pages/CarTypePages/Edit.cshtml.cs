@@ -66,7 +66,7 @@ namespace INET2005_FinalProject.Pages.CarTypePages
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./CarTypeList");
         }
 
         private bool CarTypeExists(int id)
