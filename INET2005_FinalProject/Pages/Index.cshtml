@@ -3,27 +3,56 @@
 
 @{
     ViewData["Title"] = "Index";
+    Random rand = new Random();
+    int randomCar = rand.Next(Model.Car.Count());
+    string featuredCarURL = "https://" + Request.Host.Value + "/photos/" + Model.Car[randomCar].ImageName;
 }
+<style>
+    .card-hover:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+    }
 
-<h1>Index</h1>
+    .jumbotron {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+        background-color: #000000;
+    }
+</style>
 
-<table class="table">
-    <tbody>
-        @foreach (var item in Model.Car) 
+<body>
+    <div class="jumbotron position-relative">
+        <div class="row">
+            <div class="col-md-4">
+                <img class="img-fluid" src="@featuredCarURL" />
+            </div>
+            <div class="col-md-8 align-content-middle">
+                <h1 class="text-light text-end mx-2">Get the best deal on the <br /> @Model.Car[randomCar].ModelYear @Model.Car[randomCar].BrandName @Model.Car[randomCar].Name.</h1>
+                <h3 class="text-secondary text-end mx-2">starting at $@Model.Car[randomCar].Price.ToString("N")</h3>
+            </div>
+        </div>
+        <a asp-page="./Details" asp-route-id="@Model.Car[randomCar].CarID" class="stretched-link"></a>
+    </div>
+    <h2 class="text-center"><b>OUR DEALS TODAY</b></h2>
+    <div class="row justify-content-center">
+    @for (int i = 0; i < Model.Car.Count(); i++) 
+    {
+        // Some IDs are empty because the item in the database was deleted
+        if (Model.Car[i] == null)
         {
-            // Concatenate image url
-            string imageURL = "https://" + Request.Host.Value + "/photos/" + item.ImageName;
+            continue; 
+        } 
 
-            <tr>
-                <td style="width: 10%">
-                    <img src="@imageURL" height="200" />
-                </td>
-                <td class="align-middle text-center">
-                    <h3>@item.ModelYear @item.BrandName @item.Name</h3>
-                    <b>Type: </b> @item.CarType.TypeName <br />
-                    <b>Price: </b> @item.Price <br />
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        // Concatenate image url
+        string imageURL = "https://" + Request.Host.Value + "/photos/" + Model.Car[i].ImageName;
+
+        <div class="col-xl-3 my-1 mx-1 bg-light rounded text-center card-hover position-relative">
+            <div class="my-2" style="width: 100%; height: 0; padding-bottom: 100%; position: relative;">
+                <img src="@imageURL" style="object-fit: cover;width: 100%; height: 100%; position: absolute; top: 0; left: 0;" />
+             </div>
+             <h5 class="my-2">@Model.Car[i].ModelYear @Model.Car[i].BrandName @Model.Car[i].Name</h5>
+             <a asp-page="./Details" asp-route-id="@Model.Car[i].CarID" class="stretched-link"></a>
+        </div>
+    }
+    </div>
+</body>
