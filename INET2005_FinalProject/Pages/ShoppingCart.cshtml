@@ -1,0 +1,75 @@
+﻿@page
+@model INET2005_FinalProject.Pages.ShoppingCartModel
+
+@{
+    ViewData["Title"] = "ShoppingCart";
+    decimal costBeforeTax = 0;
+    decimal costAfterTax;
+}
+
+<h1>Your Cart</h1>
+
+@if (Request.Cookies["ShoppingCart"] != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="w-25">
+                </th>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Car.Count(); i++)
+            {
+                string imageURL = "https://" + Request.Host.Value + "/photos/" + Model.Car[i].ImageName;
+                <tr>
+                    <td class="w-25">
+                        <img class="image-fluid mw-100" src="@imageURL" />
+                    </td>
+                    <td class="align-middle">
+                        <h5><b>@Model.Car[i].ModelYear @Model.Car[i].BrandName @Model.Car[i].Name</b></h5>
+                        <i>@Model.Car[i].CarType.TypeName</i>
+                    </td>
+                    <td class="align-middle">
+                        @Model.QuantityArray[i]
+                    </td>
+                    <td class="align-middle">
+                        <b>$@((Model.Car[i].Price * Model.QuantityArray[i]).ToString("N"))</b>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row align-items-center">
+        <div class="col text-end">
+            @{
+                foreach (var item in Model.Car)
+                {
+                    costBeforeTax += item.Price;
+                }
+                costAfterTax = costBeforeTax * 1.15M + 10M;
+            }
+            Delivery Fee = <b>$10.00</b> <br />
+            Tax = <b>$@((costAfterTax - costBeforeTax - 10M).ToString("N"))</b>
+            <h3><b>$@costAfterTax.ToString("N")</b></h3>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-secondary text-center" href="./Index">Continue Shopping</a> <br />
+            <a class="btn btn-outline-success text-center my-1" href="./Index">Checkout</a>
+        </div>
+    </div>
+}
+else
+{
+    <p>Your shopping cart is currently empty.</p>
+    <a class="btn btn-outline-secondary text-center my-1" href="./Index">Shop Items</a>
+}

@@ -26,7 +26,11 @@
             </dd>
         </dl>
         <h3><b>$@Model.Car.Price.ToString("N")</b></h3>
-        <a class="btn btn-lg btn-outline-success" href="./Index">Add to Cart</a>
+        <form method="post">
+            <input type="hidden" asp-for="Car.CarID" />
+            <input type="hidden" asp-for="Car.Name" />
+            <input type="submit" value="Add to Cart" class="btn btn-lg btn-outline-success" />
+        </form>
     </div>
 </div>
 <div class="my-5 d-flex justify-content-center">

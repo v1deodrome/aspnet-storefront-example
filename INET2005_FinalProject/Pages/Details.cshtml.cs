@@ -14,6 +14,10 @@ namespace INET2005_FinalProject.Pages
     {
         private readonly INET2005_FinalProject.Data.INET2005_FinalProjectContext _context;
 
+        [BindProperty]
+        public Car car { get; set; } = default!;
+        public string Message { get; set; } = string.Empty;
+
         public DetailsModel(INET2005_FinalProject.Data.INET2005_FinalProjectContext context)
         {
             _context = context;
@@ -38,6 +42,25 @@ namespace INET2005_FinalProject.Pages
                 Car = car;
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            // add product to cart
+            string cart = Request.Cookies["ShoppingCart"];
+
+            // Initialize cart
+            if (string.IsNullOrEmpty(cart))
+            {
+                Response.Cookies.Append("ShoppingCart", car.CarID.ToString());
+            }
+            // Append comma with ID instead
+            else
+            {
+                Response.Cookies.Append("ShoppingCart", cart + "," + car.CarID.ToString());
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }
