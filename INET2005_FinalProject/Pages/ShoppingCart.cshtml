@@ -23,7 +23,7 @@
                     Quantity
                 </th>
                 <th>
-                    Price
+                    Unit Price
                 </th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@
                         @Model.QuantityArray[i]
                     </td>
                     <td class="align-middle">
-                        <b>$@((Model.Car[i].Price * Model.QuantityArray[i]).ToString("N"))</b>
+                        <b>$@Model.Car[i].Price.ToString("N")</b>
                     </td>
                 </tr>
             }
@@ -52,19 +52,20 @@
     <div class="row align-items-center">
         <div class="col text-end">
             @{
-                foreach (var item in Model.Car)
+                for (int i = 0; i < Model.Car.Count(); i++)
                 {
-                    costBeforeTax += item.Price;
+                    costBeforeTax += Model.Car[i].Price * Model.QuantityArray[i];
                 }
                 costAfterTax = costBeforeTax * 1.15M + 10M;
             }
             Delivery Fee = <b>$10.00</b> <br />
+            Subtotal = <b>$@costBeforeTax.ToString("N")</b> <br />
             Tax = <b>$@((costAfterTax - costBeforeTax - 10M).ToString("N"))</b>
             <h3><b>$@costAfterTax.ToString("N")</b></h3>
         </div>
         <div class="col">
             <a class="btn btn-outline-secondary text-center" href="./Index">Continue Shopping</a> <br />
-            <a class="btn btn-outline-success text-center my-1" href="./Index">Checkout</a>
+            <a class="btn btn-outline-success text-center my-1" href="./Checkout">Checkout</a>
         </div>
     </div>
 }
